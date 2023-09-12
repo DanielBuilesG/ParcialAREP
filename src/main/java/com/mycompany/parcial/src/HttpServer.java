@@ -49,13 +49,8 @@ public class HttpServer {
             if (path.contains("/consulta?comando=")) {
                 String command = path.substring(18);
             }
-            
-            
 
-
-
-            outputLine = IndexBody();
-            
+                       
             //while ((inputLine = in.readLine()) != null) {
                 //System.out.println("Recibí: " + inputLine);
                 //if (!in.ready()) {
@@ -96,31 +91,18 @@ public class HttpServer {
     public static void UnaryInvoke(String clase, String methodName, String paramType, String paramValue) {
 
     }
-
-    public static Class Class(String className, String type) {
-
-        Class<String> string = String.class;
-        Class<Double> doubble = Double.class;
-        Class<Integer> integer = int.class;
-
-        switch (type) {
-            case "int":
-                return integer;
-            case "String":
-                return string;
-            case "double":
-                return doubble;
-            default:
-                break;
-        }
-
-        return String.class;
+    
+    
+    public static Class Class(String className) {
+        return ;
     }
 
     public static void Invoke(String className, String methodName) {
 
     }
 
+    
+    
     public static String IndexBody() {
 
         return "HTTP/1.1 200 OK\r\n"
