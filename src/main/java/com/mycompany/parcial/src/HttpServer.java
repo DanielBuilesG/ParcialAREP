@@ -28,6 +28,27 @@ public class HttpServer {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
             String inputLine, outputLine;
+
+            String path = "";
+            boolean firstLine = true;
+            while ((inputLine = in.readLine()) != null) {
+                if (firstLine && inputLine.contains("HTTP/1.1")) {
+                    path = inputLine.split(" ")[1];
+                    firstLine = false;
+                }
+                System.out.println("Recibí: " + inputLine);
+                if (!in.ready()) {
+                    break;
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+            
             while ((inputLine = in.readLine()) != null) {
                 System.out.println("Recibí: " + inputLine);
                 if (!in.ready()) {
@@ -36,7 +57,68 @@ public class HttpServer {
             }
 
             outputLine
-                    = "HTTP/1.1 200 OK\r\n"
+                    = IndexBody();
+
+            out.println(outputLine);
+            out.close();
+            in.close();
+            clientSocket.close();
+            serverSocket.close();
+        }
+    }
+    
+    public static Object GetRealValue(Object value, String type){
+        Object realValue = null;
+        
+        switch (type) {
+            case "int":
+                realValue = Integer.valueOf((String) value);
+                break;
+            case "String":
+                realValue = (String) value;
+                break;
+            case "double":
+                realValue = Double.valueOf((String) value);
+                break;
+            default:
+                break;
+        }
+        return realValue;
+
+    }
+    
+    public static void UnaryInvoke(String clase, String methodName, String paramType, String paramValue){
+        
+    }
+    
+    public static Class Class(String className, String type){
+        
+        Class<String> string = String.class;
+        Class<Double> doubble = Double.class;
+        Class<Integer> integer = int.class;
+
+        switch (type) {
+            case "int":
+                return integer;
+            case "String":
+                return string;
+            case "double":
+                return doubble;
+            default:
+                break;
+        }
+
+        return String.class;
+    }
+    
+    public static void Invoke(String className, String methodName){
+    
+    }
+    
+    
+    public static String IndexBody(){
+        
+        return "HTTP/1.1 200 OK\r\n"
                     + "Content-Type: text/html\r\n"
                     + "\r\n"
                     + "<!DOCTYPE html>\n"
@@ -88,12 +170,7 @@ public class HttpServer {
                     + "        </script>\n"
                     + "    </body>\n"
                     + "</html>";
-            out.println(outputLine);
-            out.close();
-            in.close();
-            clientSocket.close();
-            serverSocket.close();
-        }
     }
-
+    
+    
 }
