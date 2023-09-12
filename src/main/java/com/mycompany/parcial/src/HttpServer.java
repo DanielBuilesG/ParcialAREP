@@ -99,6 +99,7 @@ public class HttpServer {
 
     public static String Class(String comando, String response) throws ClassNotFoundException {
         String metodoJava;
+        metodoJava = comando.substring(6).replace(")","");
         Class c = Class.forName(metodoJava);
         Method[] method = c.getDeclaredMethods();
         Field[] field = c.getDeclaredFields();
