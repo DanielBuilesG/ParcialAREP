@@ -2,10 +2,12 @@ package com.mycompany.parcial.src;
 
 import java.net.*;
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class HttpServer {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ServerSocket serverSocket = null;
         while (true) {
             try {
@@ -60,15 +62,8 @@ public class HttpServer {
             response += "</ul>";
 
             outputLine = "HTTP/1.1 200 OK\r\n"
-                    + "Content-Type: text/html\r\n"
-                    + "\r\n" + IndexBody(response);
-            
-          
-            
-            out.println(outputLine);
-
-            
-            outputLine = IndexBody(response);
+                + "Content-Type: text/html\r\n"
+                + "\r\n" + IndexBody(response);
 
             out.println(outputLine);
             out.close();
@@ -102,8 +97,22 @@ public class HttpServer {
         return "Hola mundo";
     }
 
-    public static String Class(String comando, String response) {
-        return "Hola mundo";
+    public static String Class(String comando, String response) throws ClassNotFoundException {
+        String metodoJava;
+        Class c = Class.forName(metodoJava);
+        Method[] method = c.getDeclaredMethods();
+        Field[] field = c.getDeclaredFields();
+
+        for(Method metodo : method) {
+            response += "<li>" + method.getClass().getName()+ "</li>";
+        }
+        for(Field campos : field) {
+            response += "<li>" + field.getClass().getName() + "</li>";
+
+        }
+
+       return response;
+       
     }
 
     public static String BinaryInvoke(String comando, String response) {
