@@ -30,34 +30,40 @@ public class HttpServer {
             String inputLine, outputLine;
 
             String path = "";
+            
             boolean firstLine = true;
             while ((inputLine = in.readLine()) != null) {
                 if (firstLine && inputLine.contains("HTTP/1.1")) {
                     path = inputLine.split(" ")[1];
                     firstLine = false;
                 }
-                System.out.println("Recibí: " + inputLine);
                 if (!in.ready()) {
                     break;
                 }
             }
             
+            System.out.println("variable PATH despues del while: " + path);
             
             
             
-            
-            
-            
-            
-            while ((inputLine = in.readLine()) != null) {
-                System.out.println("Recibí: " + inputLine);
-                if (!in.ready()) {
-                    break;
-                }
+            if (path.contains("/consulta?comando=")) {
+                String command = path.substring(18);
             }
+            
+            
 
-            outputLine
-                    = IndexBody();
+
+
+            outputLine = IndexBody();
+            
+            //while ((inputLine = in.readLine()) != null) {
+                //System.out.println("Recibí: " + inputLine);
+                //if (!in.ready()) {
+               //     break;
+              //  }
+            //}
+
+            outputLine = IndexBody();
 
             out.println(outputLine);
             out.close();
@@ -66,10 +72,10 @@ public class HttpServer {
             serverSocket.close();
         }
     }
-    
-    public static Object GetRealValue(Object value, String type){
+
+    public static Object GetRealValue(Object value, String type) {
         Object realValue = null;
-        
+
         switch (type) {
             case "int":
                 realValue = Integer.valueOf((String) value);
@@ -86,13 +92,13 @@ public class HttpServer {
         return realValue;
 
     }
-    
-    public static void UnaryInvoke(String clase, String methodName, String paramType, String paramValue){
-        
+
+    public static void UnaryInvoke(String clase, String methodName, String paramType, String paramValue) {
+
     }
-    
-    public static Class Class(String className, String type){
-        
+
+    public static Class Class(String className, String type) {
+
         Class<String> string = String.class;
         Class<Double> doubble = Double.class;
         Class<Integer> integer = int.class;
@@ -110,67 +116,65 @@ public class HttpServer {
 
         return String.class;
     }
-    
-    public static void Invoke(String className, String methodName){
-    
+
+    public static void Invoke(String className, String methodName) {
+
     }
-    
-    
-    public static String IndexBody(){
-        
+
+    public static String IndexBody() {
+
         return "HTTP/1.1 200 OK\r\n"
-                    + "Content-Type: text/html\r\n"
-                    + "\r\n"
-                    + "<!DOCTYPE html>\n"
-                    + "<html>\n"
-                    + "    <head>\n"
-                    + "        <title>Form Example</title>\n"
-                    + "        <meta charset=\"UTF-8\">\n"
-                    + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-                    + "    </head>\n"
-                    + "    <body>\n"
-                    + "        <h1>Form with GET</h1>\n"
-                    + "        <form action=\"/hello\">\n"
-                    + "            <label for=\"name\">Name:</label><br>\n"
-                    + "            <input type=\"text\" id=\"name\" name=\"name\" value=\"John\"><br><br>\n"
-                    + "            <input type=\"button\" value=\"Submit\" onclick=\"loadGetMsg()\">\n"
-                    + "        </form> \n"
-                    + "        <div id=\"getrespmsg\"></div>\n"
-                    + "\n"
-                    + "        <script>\n"
-                    + "            function loadGetMsg() {\n"
-                    + "                let nameVar = document.getElementById(\"name\").value;\n"
-                    + "                const xhttp = new XMLHttpRequest();\n"
-                    + "                xhttp.onload = function() {\n"
-                    + "                    document.getElementById(\"getrespmsg\").innerHTML =\n"
-                    + "                    this.responseText;\n"
-                    + "                }\n"
-                    + "                xhttp.open(\"GET\", \"/hello?name=\"+nameVar);\n"
-                    + "                xhttp.send();\n"
-                    + "            }\n"
-                    + "        </script>\n"
-                    + "\n"
-                    + "        <h1>Form with POST</h1>\n"
-                    + "        <form action=\"/hellopost\">\n"
-                    + "            <label for=\"postname\">Name:</label><br>\n"
-                    + "            <input type=\"text\" id=\"postname\" name=\"name\" value=\"John\"><br><br>\n"
-                    + "            <input type=\"button\" value=\"Submit\" onclick=\"loadPostMsg(postname)\">\n"
-                    + "        </form>\n"
-                    + "        \n"
-                    + "        <div id=\"postrespmsg\"></div>\n"
-                    + "        \n"
-                    + "        <script>\n"
-                    + "            function loadPostMsg(name){\n"
-                    + "                let url = \"/hellopost?name=\" + name.value;\n"
-                    + "\n"
-                    + "                fetch (url, {method: 'POST'})\n"
-                    + "                    .then(x => x.text())\n"
-                    + "                    .then(y => document.getElementById(\"postrespmsg\").innerHTML = y);\n"
-                    + "            }\n"
-                    + "        </script>\n"
-                    + "    </body>\n"
-                    + "</html>";
+                + "Content-Type: text/html\r\n"
+                + "\r\n"
+                + "<!DOCTYPE html>\n"
+                + "<html>\n"
+                + "    <head>\n"
+                + "        <title>Form Example</title>\n"
+                + "        <meta charset=\"UTF-8\">\n"
+                + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+                + "    </head>\n"
+                + "    <body>\n"
+                + "        <h1>Form with GET</h1>\n"
+                + "        <form action=\"/hello\">\n"
+                + "            <label for=\"name\">Name:</label><br>\n"
+                + "            <input type=\"text\" id=\"name\" name=\"name\" value=\"John\"><br><br>\n"
+                + "            <input type=\"button\" value=\"Submit\" onclick=\"loadGetMsg()\">\n"
+                + "        </form> \n"
+                + "        <div id=\"getrespmsg\"></div>\n"
+                + "\n"
+                + "        <script>\n"
+                + "            function loadGetMsg() {\n"
+                + "                let nameVar = document.getElementById(\"name\").value;\n"
+                + "                const xhttp = new XMLHttpRequest();\n"
+                + "                xhttp.onload = function() {\n"
+                + "                    document.getElementById(\"getrespmsg\").innerHTML =\n"
+                + "                    this.responseText;\n"
+                + "                }\n"
+                + "                xhttp.open(\"GET\", \"/hello?name=\"+nameVar);\n"
+                + "                xhttp.send();\n"
+                + "            }\n"
+                + "        </script>\n"
+                + "\n"
+                + "        <h1>Form with POST</h1>\n"
+                + "        <form action=\"/hellopost\">\n"
+                + "            <label for=\"postname\">Name:</label><br>\n"
+                + "            <input type=\"text\" id=\"postname\" name=\"name\" value=\"John\"><br><br>\n"
+                + "            <input type=\"button\" value=\"Submit\" onclick=\"loadPostMsg(postname)\">\n"
+                + "        </form>\n"
+                + "        \n"
+                + "        <div id=\"postrespmsg\"></div>\n"
+                + "        \n"
+                + "        <script>\n"
+                + "            function loadPostMsg(name){\n"
+                + "                let url = \"/hellopost?name=\" + name.value;\n"
+                + "\n"
+                + "                fetch (url, {method: 'POST'})\n"
+                + "                    .then(x => x.text())\n"
+                + "                    .then(y => document.getElementById(\"postrespmsg\").innerHTML = y);\n"
+                + "            }\n"
+                + "        </script>\n"
+                + "    </body>\n"
+                + "</html>";
     }
-    
-    
+
 }
