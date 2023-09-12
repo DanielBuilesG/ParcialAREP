@@ -93,10 +93,14 @@ public class HttpServer {
     }
     
     
-    public static Class Class(String className) {
-        return ;
-    }
+    public static void Class(String className) {
 
+    }
+    
+    public static void BinaryInvoke(Class nombre, String metodo, String tipo1, Object value1, String tipo2, Object value2){
+        
+    }
+    
     public static void Invoke(String className, String methodName) {
 
     }
@@ -129,20 +133,13 @@ public class HttpServer {
                 + "                let nameVar = document.getElementById(\"name\").value;\n"
                 + "                const xhttp = new XMLHttpRequest();\n"
                 + "                xhttp.onload = function() {\n"
-                + "                    document.getElementById(\"getrespmsg\").innerHTML =\n"
-                + "                    this.responseText;\n"
+
                 + "                }\n"
                 + "                xhttp.open(\"GET\", \"/hello?name=\"+nameVar);\n"
                 + "                xhttp.send();\n"
                 + "            }\n"
                 + "        </script>\n"
                 + "\n"
-                + "        <h1>Form with POST</h1>\n"
-                + "        <form action=\"/hellopost\">\n"
-                + "            <label for=\"postname\">Name:</label><br>\n"
-                + "            <input type=\"text\" id=\"postname\" name=\"name\" value=\"John\"><br><br>\n"
-                + "            <input type=\"button\" value=\"Submit\" onclick=\"loadPostMsg(postname)\">\n"
-                + "        </form>\n"
                 + "        \n"
                 + "        <div id=\"postrespmsg\"></div>\n"
                 + "        \n"
